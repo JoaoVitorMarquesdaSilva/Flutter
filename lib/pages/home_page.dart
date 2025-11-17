@@ -1,9 +1,11 @@
+import 'package:abastecimento_app/abastecimentos/historico_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
 import 'login_page.dart';
-import '../veiculos/vehicles_page.dart'; 
-import '../abastecimentos/select_vehicle_page.dart'; 
+import '../veiculos/vehicles_page.dart';
+import '../abastecimentos/select_vehicle_page.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,39 +15,32 @@ class HomePage extends StatelessWidget {
     final auth = Provider.of<AuthService>(context, listen: false);
 
     return Scaffold(
+      
       appBar: AppBar(
         title: const Text("Página Inicial"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              auth.logout();
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginPage()),
-              );
-            },
-          )
-        ],
+        backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "Bem-vindo!",
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 30),
 
-            // BOTÃO VEÍCULOS
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+      // ----------------------- DRAWER LATERAL -----------------------
+      drawer: Drawer(
+        backgroundColor: Colors.blue,
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: const Center(
+                child: Text(
+                  "Menu",
+                  style: TextStyle(fontSize: 22, color: Colors.white),
+                ),
               ),
-              icon: const Icon(Icons.directions_car),
-              label: const Text("Meus Veículos", style: TextStyle(fontSize: 18)),
-              onPressed: () {
+            ),
+
+            
+            ListTile(
+              leading: const Icon(Icons.directions_car, color: Colors.white),
+              title: const Text("Meus Veículos", style: TextStyle(color: Colors.white)),
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => VehiclesPage()),
@@ -53,26 +48,56 @@ class HomePage extends StatelessWidget {
               },
             ),
 
-            const SizedBox(height: 20),
-
-            // BOTÃO ABASTECIMENTOS (ESCOLHER VEÍCULO)
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-              ),
-              icon: const Icon(Icons.local_gas_station),
-              label: const Text(
-                "Abastecimentos",
-                style: TextStyle(fontSize: 18),
-              ),
-              onPressed: () {
+            
+            ListTile(
+              leading: const Icon(Icons.local_gas_station, color: Colors.white),
+              title: const Text("Registrar Abastecimento",
+                  style: TextStyle(color: Colors.white)),
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => SelectVehiclePage()),
                 );
               },
             ),
+
+          
+            ListTile(
+              leading: const Icon(Icons.history, color: Colors.white),
+              title: const Text("Histórico de Abastecimentos",
+                  style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => HistoricoAbastecimentoPage()),
+                );
+              },
+            ),
+
+            const Divider(color: Colors.white24),
+
+            
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.white),
+              title: const Text("Sair",
+                  style: TextStyle(color: Colors.white)),
+              onTap: () {
+                auth.logout();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginPage()),
+                );
+              },
+            ),
           ],
+        ),
+      ),
+
+      
+      body: const Center(
+        child: Text(
+          "Bem-vindo!",
+          style: TextStyle(fontSize: 22, color: Colors.white),
         ),
       ),
     );
