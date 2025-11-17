@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
 import 'login_page.dart';
+import '../veiculos/vehicles_page.dart'; 
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -26,10 +27,35 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: const Center(
-        child: Text(
-          "Bem-vindo!",
-          style: TextStyle(fontSize: 20),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Bem-vindo!",
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 30),
+
+            
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              ),
+              icon: const Icon(Icons.directions_car),
+              label: const Text(
+                "Meus Veículos",
+                style: TextStyle(fontSize: 18),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => VehiclesPage()),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
