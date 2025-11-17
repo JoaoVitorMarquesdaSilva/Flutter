@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
 import 'login_page.dart';
 import '../veiculos/vehicles_page.dart'; 
+import '../abastecimentos/select_vehicle_page.dart'; 
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -37,21 +38,37 @@ class HomePage extends StatelessWidget {
             ),
             const SizedBox(height: 30),
 
-            
+            // BOTÃO VEÍCULOS
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
               ),
               icon: const Icon(Icons.directions_car),
+              label: const Text("Meus Veículos", style: TextStyle(fontSize: 18)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => VehiclesPage()),
+                );
+              },
+            ),
+
+            const SizedBox(height: 20),
+
+            // BOTÃO ABASTECIMENTOS (ESCOLHER VEÍCULO)
+            ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              ),
+              icon: const Icon(Icons.local_gas_station),
               label: const Text(
-                "Meus Veículos",
+                "Abastecimentos",
                 style: TextStyle(fontSize: 18),
               ),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => VehiclesPage()),
+                  MaterialPageRoute(builder: (_) => SelectVehiclePage()),
                 );
               },
             ),
